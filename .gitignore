@@ -1,0 +1,11 @@
+postgres
+usda
+.DS_Store
+.ipynb_checkpoints
+.vscode
+logfile
+bin
+*.prof
+*.bleve
+go.sum
+out.json
