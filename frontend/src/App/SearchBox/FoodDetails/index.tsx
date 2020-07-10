@@ -51,6 +51,9 @@ export default function FoodDetails(props: detailProps) {
       <div className="nutritionRow subNutritionRow">
         <b>Added Sugars</b> {valOrDash(foodDetail?.AddedSugars, "g")}
       </div>
+      <div className="nutritionRow">
+        <b>Protein</b> {valOrDash(foodDetail?.Protein, "g")}
+      </div>
     </div>
   );
 }

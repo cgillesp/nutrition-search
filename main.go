@@ -15,6 +15,8 @@ import (
 var dbc = sqlx.MustOpen("postgres",
 	"postgres://charlie@localhost/KFoodNutrients?sslmode=disable")
 
+var shouldAllowLocalhost = false
+
 func main() {
 	// Initializes profiler
 	// os.Remove("./cpu.prof")
@@ -40,16 +42,22 @@ func main() {
 
 	// Runs functions in response to commands
 	switch arg {
-	case "serve":
-		serve(index)
+	case "local":
+		serve(index, false)
+	case "production":
+		serve(index, true)
 	}
 }
 
-func serve(index bleve.Index) {
+func serve(index bleve.Index, production bool) {
 	r := mux.NewRouter()
 
-	r.HandleFunc("/query", makeQueryHandler(index))
-	r.HandleFunc("/nutrients", getNutrients)
+	if !production {
+		shouldAllowLocalhost = true
+	}
+
+	r.HandleFunc("/food/query", makeQueryHandler(index))
+	r.HandleFunc("/food/nutrients", getNutrients)
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":4321", nil))
 }
@@ -98,5 +106,7 @@ func getNutrients(w http.ResponseWriter, r *http.Request) {
 }
 
 func allowLocalhost(w http.ResponseWriter) {
-	w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	if shouldAllowLocalhost {
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+	}
 }

@@ -34,10 +34,15 @@ export interface Result {
   Hits?: Food[];
 }
 
+const apiDomain =
+  process.env.NODE_ENV === "production"
+    ? "https://demos.charliegillespie.com"
+    : "http://localhost:4321";
+
 export async function makeSearchRequest(
   query: string
 ): Promise<Food[] | undefined> {
-  let queryURL = new URL("http://localhost:4321/query");
+  let queryURL = new URL(apiDomain + "/food/query");
   queryURL.searchParams.append("q", query);
 
   const response = fetch(queryURL.toString());
@@ -52,7 +57,7 @@ export async function makeSearchRequest(
 export async function makeDetailsRequest(
   fdcID: Number
 ): Promise<FoodNutrients | undefined> {
-  let queryURL = new URL("http://localhost:4321/nutrients");
+  let queryURL = new URL(apiDomain + "/food/nutrients");
   queryURL.searchParams.append("q", fdcID.toString());
 
   const response = fetch(queryURL.toString());

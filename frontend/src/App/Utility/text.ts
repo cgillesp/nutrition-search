@@ -13,7 +13,10 @@ export function valOrDash(
 ): string {
   const followString = follow ? follow : "";
 
-  if (input == undefined) {
+  // Okay so eslint complains about not using isNaN
+  // But that would require casting to a number :(
+  // eslint-disable-next-line
+  if (input == null || input === "" || input === NaN) {
     return "—";
   }
 
