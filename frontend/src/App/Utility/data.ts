@@ -42,7 +42,7 @@ const apiDomain =
 export async function makeSearchRequest(
   query: string
 ): Promise<Food[] | undefined> {
-  let queryURL = new URL(apiDomain + "/food/query");
+  let queryURL = new URL(apiDomain + "/food/api/query");
   queryURL.searchParams.append("q", query);
 
   const response = fetch(queryURL.toString());
@@ -57,7 +57,7 @@ export async function makeSearchRequest(
 export async function makeDetailsRequest(
   fdcID: Number
 ): Promise<FoodNutrients | undefined> {
-  let queryURL = new URL(apiDomain + "/food/nutrients");
+  let queryURL = new URL(apiDomain + "/food/api/nutrients");
   queryURL.searchParams.append("q", fdcID.toString());
 
   const response = fetch(queryURL.toString());

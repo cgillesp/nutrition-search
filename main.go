@@ -56,8 +56,8 @@ func serve(index bleve.Index, production bool) {
 		shouldAllowLocalhost = true
 	}
 
-	r.HandleFunc("/food/query", makeQueryHandler(index))
-	r.HandleFunc("/food/nutrients", getNutrients)
+	r.HandleFunc("/food/api/query", makeQueryHandler(index))
+	r.HandleFunc("/food/api/nutrients", getNutrients)
 	http.Handle("/", r)
 	log.Fatal(http.ListenAndServe(":4321", nil))
 }
