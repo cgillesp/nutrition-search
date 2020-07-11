@@ -3,10 +3,23 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/user"
+	"path/filepath"
 	"strconv"
 
 	"github.com/blevesearch/bleve"
 )
+
+var bleveName = "fts.bleve"
+var bleveFolder = getBleveFolder()
+
+func getBleveFolder() string {
+	usr, err := user.Current()
+	if err != nil {
+		panic("Could not find home directory")
+	}
+	return filepath.Join(usr.HomeDir, "fooddata")
+}
 
 type searchFields struct {
 	Description string
@@ -69,7 +82,7 @@ func getSearchFields(food Food) searchFields {
 }
 
 func openIndex() bleve.Index {
-	index, err := bleve.Open("./fts.bleve")
+	index, err := bleve.Open(filepath.Join(bleveFolder, bleveName))
 	if err != nil {
 		index = initIndex()
 	}
@@ -77,14 +90,15 @@ func openIndex() bleve.Index {
 }
 
 func initIndex() bleve.Index {
-	err := os.RemoveAll("./fts.bleve")
+	os.Mkdir(bleveFolder, 0744)
+	err := os.RemoveAll(filepath.Join(bleveFolder, bleveName))
 	if err != nil {
 		fmt.Println(err)
 		panic("Failed to clear index")
 	}
 	mapping := bleve.NewIndexMapping()
 	mapping.DefaultAnalyzer = "en"
-	index, err := bleve.New("./fts.bleve", mapping)
+	index, err := bleve.New(filepath.Join(bleveFolder, bleveName), mapping)
 	if err != nil {
 		fmt.Println(err)
 		panic("Could not initialize search database.")

@@ -1,4 +1,4 @@
-module charliegillespie.com/nutrition
+module nutrition
 
 go 1.14
 

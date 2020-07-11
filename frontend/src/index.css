@@ -42,3 +42,9 @@ code {
   font-weight: 600;
   text-align: center;
 }
+
+@media (max-width: 550px) {
+  .headerTitle {
+    font-size: 3em;
+  }
+}

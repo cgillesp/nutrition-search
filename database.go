@@ -7,7 +7,8 @@ import (
 	"errors"
 	"strconv"
 
-	"charliegillespie.com/nutrition/db"
+	"nutrition/db"
+
 	"github.com/blevesearch/bleve"
 	"gopkg.in/guregu/null.v4"
 )
