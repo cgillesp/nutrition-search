@@ -10,7 +10,7 @@ export default function SearchBox() {
   const [detailFood, setDetailFood] = useState<Food | undefined>();
 
   const onItemClick = (food: Food) => () => setDetailFood(food);
-
+  const closeDetail = () => setDetailFood(undefined);
   return (
     <div className="searchArea">
       <input
@@ -32,7 +32,7 @@ export default function SearchBox() {
         className="searchBox"
       />
       {detailFood ? (
-        <FoodDetails food={detailFood} />
+        <FoodDetails food={detailFood} closeDetail={closeDetail} />
       ) : (
         <Results resultsList={resultsList} onItemClick={onItemClick} />
       )}

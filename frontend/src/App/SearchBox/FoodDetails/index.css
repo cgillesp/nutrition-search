@@ -12,6 +12,16 @@
   margin-block-end: 0px;
 }
 
+.detailView {
+  box-shadow: 0 0 7px 7px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  margin: 5px 0px;
+  padding: 5px;
+  border-radius: 5px;
+  z-index: 5;
+  position: relative;
+}
+
 .nutritionRow {
   border-bottom: 1px solid rgb(77, 77, 77);
   padding: 3px 0;
@@ -26,4 +36,18 @@
 
 .nutritionRow.caloriesRow {
   font-size: 1.5em;
+}
+
+.topRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.detailCloseButton {
+  font-size: 22pt;
+  flex: 0 0 auto;
+  cursor: pointer;
+  /* box-sizing: border-box; */
+  padding: 4px 0 0;
 }

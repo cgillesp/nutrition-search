@@ -9,3 +9,4 @@ bin
 *.bleve
 go.sum
 out.json
+.swp
