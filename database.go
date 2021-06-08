@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"strconv"
 
 	"nutrition/db"
@@ -57,6 +58,7 @@ func getSearchResultsJSON(index bleve.Index, query string) (string, error) {
 		var food Food
 		err := row.StructScan(&food)
 		if err != nil {
+			fmt.Println(err)
 			return "", errors.New("error reading results from database")
 		}
 		foodResults = append(foodResults, food)
